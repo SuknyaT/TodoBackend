@@ -8,19 +8,26 @@ const cors = require('cors'); // Import cors middleware for handling cross-origi
 
 // Configure Express to use bodyParser for handling request bodies
 app.use(bodyParser.json());
-app.use(cors());
+
 app.use(
   bodyParser.urlencoded({
     extended: true,
   })
 );
-app.use(function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-});
+const corsOpts = {
+  origin: '*',
+
+  methods: [
+    'GET',
+    'POST',
+  ],
+
+  allowedHeaders: [
+    'Content-Type',
+  ],
+};
+
+app.use(cors(corsOpts));
 
 // Start the Express server and listen on the specified port
 app.listen(port, () => {
