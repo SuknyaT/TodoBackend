@@ -4,9 +4,11 @@ const bodyParser = require('body-parser'); // Import body-parser middleware for 
 const app = express(); // Create an Express application instance
 const port = 3000; // Set the port number for the server
 const db = require('./queries'); // Import database query functions from the 'queries.js' file
+const cors = require('cors'); // Import cors middleware for handling cross-origin resource sharing
 
 // Configure Express to use bodyParser for handling request bodies
 app.use(bodyParser.json());
+app.use(cors());
 app.use(
   bodyParser.urlencoded({
     extended: true,
