@@ -4,8 +4,14 @@ const bodyParser = require('body-parser'); // Import body-parser middleware for 
 const app = express(); // Create an Express application instance
 const port = 3000; // Set the port number for the server
 const db = require('./queries'); // Import database query functions from the 'queries.js' file
-const cors = require('cors'); // Import cors middleware for handling cross-origin resource sharing
+var cors = require('cors') // Import cors middleware for handling cross-origin resource sharing
 
+const corsOptions ={
+  origin:'http://localhost:8000', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
 // Configure Express to use bodyParser for handling request bodies
 app.use(bodyParser.json());
 
@@ -14,20 +20,7 @@ app.use(
     extended: true,
   })
 );
-const corsOpts = {
-  origin: '*',
 
-  methods: [
-    'GET',
-    'POST',
-  ],
-
-  allowedHeaders: [
-    'Content-Type',
-  ],
-};
-
-app.use(cors(corsOpts));
 
 // Start the Express server and listen on the specified port
 app.listen(port, () => {
